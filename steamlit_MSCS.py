@@ -87,8 +87,9 @@ def run_flow(inputs: dict, flow_id: str, tweaks: Optional[dict] = None) -> dict:
 def generate_response(prompt):
     logging.info(f"question: {prompt}")
     inputs = {"text": prompt}
-    response = run_flow(inputs, flow_id=FLOW_ID, tweaks=TWEAKS)
     try:
+        response = run_flow(inputs, flow_id=FLOW_ID, tweaks=TWEAKS)
+        print(response)
         logging.info(f"answer: {response['result']['text']}") 
         return response["result"]["text"]  
     except Exception as exc:
