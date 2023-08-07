@@ -9,7 +9,7 @@ from streamlit_chat import message
 log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 logging.basicConfig(format=log_format, stream=sys.stdout, level=logging.INFO)
 
-BASE_API_URL = "https://0dea-2603-7000-38f0-7190-4466-cd29-b084-8956.ngrok-free.app"
+BASE_API_URL = "http://127.0.0.1:7861/api/v1/process"
 FLOW_ID = "0f1feb39-df18-448f-a0a7-79c50342149e"
 # You can tweak the flow by adding a tweaks dictionary
 # e.g {"OpenAI-XXXXX": {"model_name": "gpt-4"}}
@@ -29,6 +29,20 @@ def main():
     st.set_page_config(page_title="UTK MSCS Chatbot")
 
     st.markdown("##### UTK MSCS Chatbot")
+    with st.sidebar:
+        st.title('Welcome to UTK MSCS Chatbot!')
+        st.markdown('''
+        ## About
+        This Chatbot aims to inform you about UTK's MSCS program built using:
+        - [Streamlit](https://streamlit.io/)
+        - [ChatGPT 3.5](https://openai.com/blog/introducing-chatgpt-and-whisper-apis)
+        - [LangFlow](https://github.com/logspace-ai/langflow)
+        
+        💡 Note: No API key required!
+       
+        Learn more about this product's project plan [in this presentation](https://docs.google.com/presentation/d/1b7KRX2ewBwh85-oXonyViW6Le_-fcTKfWrNfJ19qK_o/edit?usp=sharing)
+        ''')
+
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -87,9 +101,8 @@ def run_flow(inputs: dict, flow_id: str, tweaks: Optional[dict] = None) -> dict:
 def generate_response(prompt):
     logging.info(f"question: {prompt}")
     inputs = {"text": prompt}
+    response = run_flow(inputs, flow_id=FLOW_ID, tweaks=TWEAKS)
     try:
-        response = run_flow(inputs, flow_id=FLOW_ID, tweaks=TWEAKS)
-        print(response)
         logging.info(f"answer: {response['result']['text']}") 
         return response["result"]["text"]  
     except Exception as exc:
