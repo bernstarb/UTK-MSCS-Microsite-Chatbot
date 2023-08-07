@@ -9,7 +9,7 @@ from streamlit_chat import message
 log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 logging.basicConfig(format=log_format, stream=sys.stdout, level=logging.INFO)
 
-BASE_API_URL = "http://127.0.0.1:7861/api/v1/process"
+BASE_API_URL = "https://elk-great-similarly.ngrok-free.app"
 FLOW_ID = "0f1feb39-df18-448f-a0a7-79c50342149e"
 # You can tweak the flow by adding a tweaks dictionary
 # e.g {"OpenAI-XXXXX": {"model_name": "gpt-4"}}
